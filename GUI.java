@@ -364,12 +364,6 @@ public class GUI {
         String type;
         boolean accExists, valid_input;
         
-        view_acct.removeAllItems(); // clear the dropdown
-        // update the dropdown with the new array list
-        for(Account a : accounts) {
-            view_acct.addItem(a.getName() + " - " + a.getType());
-        }
-        
         // temporary panel for the JOptionPane
         JPanel dialog = new JPanel(new BorderLayout(5,5));
         // all of the labels for the JOptionPane
@@ -463,7 +457,7 @@ public class GUI {
                         acc.setType(type);
                         
                         accounts.add(acc);
-                        view_acct.addItem(name); // add new account to dropdown
+                        view_acct.addItem(name + " - " + type); // add new account to dropdown
                         initTableAccounts();
                         
                         if(currAccount == null)
@@ -1350,8 +1344,8 @@ public class GUI {
                         initTableAccounts();
                     } 
                     else {
-                        String oldName = accounts.get(row).getName();
-                        IO.updateTranDataName(oldName, String.valueOf(value)); // rename transaction file
+                        
+                        IO.updateTranDataName(accounts.get(row), String.valueOf(value)); // rename transaction file
                         
                         accounts.get(row).setName(String.valueOf(value)); // rename the account
                         view_acct.removeAllItems(); // clear the dropdown

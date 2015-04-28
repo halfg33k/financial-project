@@ -337,7 +337,7 @@ public class IO extends GUI {
     } // updateAccountData
     
 	//edit the name of the of the account in the mysql transactions table
-    public static void updateTranDataName(String oldName, String newName){
+    public static void updateTranDataName(Account acc, String newName){
 
 		try{
 			
@@ -346,7 +346,7 @@ public class IO extends GUI {
 				
 			Statement stmt = conn.createStatement();
 			
-			String update = "UPDATE transactions SET name= \'" + newName + "\' WHERE name = \'" + oldName + "\'";
+			String update = "UPDATE transactions SET name= \'" + newName + "\' WHERE name = \'" + acc.getName() + "\' AND typeAcc = "+ "\'" + acc.getType() + "\'";
 			
 			stmt.executeUpdate(update);
 			
