@@ -33,7 +33,7 @@ public class IO extends GUI {
             Statement stmt = conn.createStatement();
             
             String sql = "CREATE TABLE accounts " +
-               "(type VARCHAR(10) not NULL, " +
+               "(type VARCHAR(20) not NULL, " +
                " name VARCHAR(30), " + 
                " balance double, " +  
                " PRIMARY KEY ( type, name ))"; 
@@ -161,7 +161,7 @@ public class IO extends GUI {
 				Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 				
 				Statement stmt = conn.createStatement();
-				System.out.println("CHECK------------------------------------");
+				//System.out.println("CHECK------------------------------------");
 				String sql = "CREATE TABLE transactions " +
                    "(name VARCHAR(30) not NULL," +
                    " type VARCHAR(10), " + 
@@ -295,7 +295,7 @@ public class IO extends GUI {
 					
 			Statement stmt = conn.createStatement();
 			
-			String update = "DELETE FROM transactions WHERE name = \'" + acc.getName() +"\'";
+			String update = "DELETE FROM transactions WHERE name = \'" + acc.getName() + "\' AND typeAcc = "+ "\'" + acc.getType() + "\'";
 			
 			stmt.executeUpdate(update);
             

@@ -735,6 +735,21 @@ public class GUI {
     
     
     
+    private static boolean check_input_account(Account acc){
+        for(int i = 0; i < accounts.size(); i++){
+            if(accounts.get(i).getName().equals(acc.getName())
+                && accounts.get(i).getType().equals(acc.getType())
+                && accounts.get(i) != acc){
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    
+    
+    
     // check input for errors
     private static int check_input_trans(String date, String payee, String category, String amount){
         int valid_input = 0;
@@ -1329,7 +1344,12 @@ public class GUI {
                 case 0:
                     if(String.valueOf(value) == ""){
                         JOptionPane.showMessageDialog(null, "The account must have a name!");
-                    } else {
+                    } 
+                    else if(check_input_account(accounts.get(row))){
+                        JOptionPane.showMessageDialog(null, "That name already exists!");
+                        initTableAccounts();
+                    } 
+                    else {
                         String oldName = accounts.get(row).getName();
                         IO.updateTranDataName(oldName, String.valueOf(value)); // rename transaction file
                         
