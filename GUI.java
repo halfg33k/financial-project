@@ -735,16 +735,16 @@ public class GUI {
     
     
     
-    private static boolean check_input_account(Account acc){
+    private static boolean check_input_account(String name, Account acc, int row){
         for(int i = 0; i < accounts.size(); i++){
-            if(accounts.get(i).getName().equals(acc.getName())
+            if(accounts.get(i).getName().equals(name)
                 && accounts.get(i).getType().equals(acc.getType())
-                && accounts.get(i) != acc){
-                return false;
+                && i != row){
+                return true;
             }
         }
         
-        return true;
+        return false;
     }
     
     
@@ -1345,7 +1345,7 @@ public class GUI {
                     if(String.valueOf(value) == ""){
                         JOptionPane.showMessageDialog(null, "The account must have a name!");
                     } 
-                    else if(check_input_account(accounts.get(row))){
+                    else if(check_input_account(String.valueOf(value), accounts.get(row), row)){
                         JOptionPane.showMessageDialog(null, "That name already exists!");
                         initTableAccounts();
                     } 
