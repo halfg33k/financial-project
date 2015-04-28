@@ -118,13 +118,13 @@ public class GUI {
 		 */
 		view_acct = new JComboBox<String>();
         for(Account a : accounts) // add accounts to dropdown
-			view_acct.addItem(a.getName());
+			view_acct.addItem(a.getName() + " - " + a.getType());
             
         // keep track of the currently selected account
         view_acct.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
                 int index = view_acct.getSelectedIndex();
-                System.out.println(index);
+                
                 if(index >= 0){
                     currAccount = accounts.get(index);
                     if(currTab == 1)
@@ -236,7 +236,7 @@ public class GUI {
                                 view_acct.removeAllItems(); // clear the dropdown
                                 // update the dropdown with the new array list
                                 for(Account a : accounts) {
-                                    view_acct.addItem(a.getName());
+                                    view_acct.addItem(a.getName() + " - " + a.getType());
                                 }
                                 
                                 // delete the transaction file
@@ -364,6 +364,12 @@ public class GUI {
         String type;
         boolean accExists, valid_input;
         
+        view_acct.removeAllItems(); // clear the dropdown
+        // update the dropdown with the new array list
+        for(Account a : accounts) {
+            view_acct.addItem(a.getName() + " - " + a.getType());
+        }
+        
         // temporary panel for the JOptionPane
         JPanel dialog = new JPanel(new BorderLayout(5,5));
         // all of the labels for the JOptionPane
@@ -383,8 +389,8 @@ public class GUI {
         accType.addItem("Checking");
         accType.addItem("Savings");
         accType.addItem("COD");
-        accType.addItem("Credit Card");
-        accType.addItem("Money Market");
+        accType.addItem("CreditCard");
+        accType.addItem("MoneyMarket");
         fields.add(accName);
         fields.add(accBal);
         fields.add(accType);
@@ -539,7 +545,7 @@ public class GUI {
 		transType.addItem("Transfer");
         
         for(Account a : accounts) // add existing accounts to the dropdown
-            transAcc.addItem(a.getName());
+            transAcc.addItem(a.getName() + " - " + a.getType());
             
         // show transAcc only if transaction type is "Transfer"
         transType.addActionListener(new ActionListener(){
@@ -761,6 +767,8 @@ public class GUI {
         if(currAccount != null){
             currTab = 2;
             
+            
+            
             trans = currAccount.getTransactions();
             
             startDate.setText(FindDates.getOldestDate(trans));
@@ -860,6 +868,8 @@ public class GUI {
     private static void initTableTransactions(String startDate, String endDate){
         if(currAccount != null){
             currTab = 2;
+            
+            
             
             trans = currAccount.getTransactions();
             
@@ -1326,7 +1336,7 @@ public class GUI {
                         accounts.get(row).setName(String.valueOf(value)); // rename the account
                         view_acct.removeAllItems(); // clear the dropdown
                         for(Account a : accounts) // update the dropdown
-                            view_acct.addItem(a.getName());
+                            view_acct.addItem(a.getName() + " - " + a.getType());
                             
                         IO.updateAccountData(accounts);
                     }
